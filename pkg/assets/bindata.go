@@ -1421,7 +1421,7 @@ spec:
           successThreshold: 1
           failureThreshold: 3
           timeoutSeconds: 160
-{{ end }}
+{{- end }}
         volumeMounts:
         - mountPath: /etc/openshift/kubeconfig
           name: kubeconfig
@@ -1445,7 +1445,7 @@ spec:
       - configMap:
           name: kube-apiserver-oauth-metadata
         name: oauth
-{{- if .ROKSMetricsImage }}
+{{- if .ROKSMetricsImage or .PortierisEnabled }}
       - secret:
           secretName: service-network-admin-kubeconfig
         name: kubeconfig
