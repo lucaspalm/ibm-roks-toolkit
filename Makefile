@@ -6,7 +6,7 @@ default: build
 
 .PHONY: build
 build:  bindata control-plane-operator roks-metrics
-	go build -mod=vendor -o ./bin/ibm-roks github.com/openshift/ibm-roks-toolkit/cmd/ibm-roks
+	CGO_ENABLED=0 GOOS=linux CGO_ENABLED=0 GOOS=linux go build -mod=vendor -o ./bin/ibm-roks github.com/openshift/ibm-roks-toolkit/cmd/ibm-roks
 
 .PHONY: bindata
 bindata:
@@ -31,12 +31,12 @@ verify: verify-gofmt verify-bindata
 # Build manager binary
 .PHONY: control-plane-operator
 control-plane-operator:
-	go build -mod=vendor -o ./bin/control-plane-operator ./cmd/control-plane-operator/main.go
+	CGO_ENABLED=0 GOOS=linux go build -mod=vendor -o ./bin/control-plane-operator ./cmd/control-plane-operator/main.go
 
 .PHONY: roks-metrics
 roks-metrics:
-	go build -mod=vendor -o ./bin/roks-metrics ./cmd/roks-metrics/main.go
-	go build -mod=vendor -o ./bin/metrics-pusher ./cmd/metrics-pusher/main.go
+	CGO_ENABLED=0 GOOS=linux go build -mod=vendor -o ./bin/roks-metrics ./cmd/roks-metrics/main.go
+	CGO_ENABLED=0 GOOS=linux go build -mod=vendor -o ./bin/metrics-pusher ./cmd/metrics-pusher/main.go
 
 test:
 	./hack/test.sh
